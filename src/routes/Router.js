@@ -1,4 +1,5 @@
 import React from 'react'
+import { Switch } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Nav from '../components/Nav'
@@ -9,6 +10,9 @@ import PremiumCourses from '../components/PremiumCourses'
 import Admin from '../components/Admin'
 import Login from '../components/Login'
 import NotFound from '../components/NotFound'
+import PublicRoutes from './PublicRoutes'
+import PremiumRoute from './PremiumRoute'
+import AdminRoute from './AdminRoute'
 
 const Div = styled.div`
   margin: 0;
@@ -26,7 +30,35 @@ function Router() {
   return (
     <Div>
       <Nav />
-      <Page></Page>
+      <Page>
+        <Switch>
+          <PublicRoutes exact path='/'>
+            <Courses />
+          </PublicRoutes>
+          <PublicRoutes path='/blog'>
+            <Blog />
+          </PublicRoutes>
+          <PublicRoutes path='/resources'>
+            <Resources />
+          </PublicRoutes>
+
+          <PremiumRoute path='/premium-courses'>
+            <PremiumCourses />
+          </PremiumRoute>
+
+          <AdminRoute path='/admin'>
+            <Admin />
+          </AdminRoute>
+
+          <PublicRoutes path='/login'>
+            <Login />
+          </PublicRoutes>
+
+          <PublicRoutes>
+            <NotFound />
+          </PublicRoutes>
+        </Switch>
+      </Page>
     </Div>
   )
 }

@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+
+import { AuthContext } from '../App'
 
 const FormDiv = styled.div`
   top: 0;
@@ -60,20 +63,49 @@ const FormDiv = styled.div`
 `
 
 const Login = () => {
+  const [user, setUser] = useState({ username: '', password: '' })
+
+  const { login, auth } = useContext(AuthContext)
+  const history = useHistory()
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    setUser({ ...user, [name]: value })
+  }
+
+  useEffect(() => {
+    if (auth && auth === 'member') {
+      history.push('/premium-courses')
+    }
+    if (auth && auth === 'admin') {
+      history.push('/admin')
+    }
+  }, [auth, history])
+
   return (
     <FormDiv>
-      <form>
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          login(user.username, user.password)
+          setUser({ username: '', password: '' })
+        }}
+      >
         <input
           className='input'
           type='String'
           name='username'
           placeholder='Username'
+          onChange={handleChange}
+          value={user.username}
         />
         <input
           className='input'
           type='password'
           name='password'
           placeholder='Password'
+          onChange={handleChange}
+          value={user.password}
         />
         <button className='bttn'>Submit</button>
       </form>

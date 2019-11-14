@@ -1,26 +1,24 @@
-import React, { createContext, useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import React, { createContext, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 
-import Router from './routes/Router'
-import { authentication } from './utils/fakeBackend'
+import Router from "./routes/Router";
+import { authentication } from "./utils/fakeBackend";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null)
+  const [auth, setAuth] = useState(null);
 
-  const login = (name, password) => setAuth(authentication(name, password))
+  const login = (name, password) => setAuth(authentication(name, password));
 
-  const logout = () => setAuth(null)
-
-  console.log(auth)
+  const logout = () => setAuth(null);
 
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 function App() {
   return (
@@ -29,7 +27,7 @@ function App() {
         <Router />
       </BrowserRouter>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

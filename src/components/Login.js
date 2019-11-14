@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
-import { AuthContext } from '../App'
+import { AuthContext } from "../App";
 
 const FormDiv = styled.div`
   top: 0;
@@ -60,68 +60,68 @@ const FormDiv = styled.div`
     border: 1px solid teal;
     border-radius: 4px;
   }
-`
+`;
 
 const Login = () => {
-  const [user, setUser] = useState({ username: '', password: '' })
+  const [user, setUser] = useState({ username: "", password: "" });
 
-  const { login, auth } = useContext(AuthContext)
-  const history = useHistory()
+  const { login, auth } = useContext(AuthContext);
+  const history = useHistory();
 
   const handleChange = e => {
-    const { name, value } = e.target
-    setUser({ ...user, [name]: value })
-  }
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
   useEffect(() => {
-    if (auth && auth === 'member') {
-      history.push('/premium-courses')
+    if (auth && auth === "member") {
+      history.push("/premium-courses");
     }
-    if (auth && auth === 'admin') {
-      history.push('/admin')
+    if (auth && auth === "admin") {
+      history.push("/admin");
     }
-  }, [auth, history])
+  }, [auth, history]);
 
   return (
     <FormDiv>
       <form
         onSubmit={e => {
-          e.preventDefault()
-          login(user.username, user.password)
-          setUser({ username: '', password: '' })
+          e.preventDefault();
+          login(user.username, user.password);
+          setUser({ username: "", password: "" });
         }}
       >
         <input
-          className='input'
-          type='String'
-          name='username'
-          placeholder='Username'
+          className="input"
+          type="String"
+          name="username"
+          placeholder="Username"
           onChange={handleChange}
           value={user.username}
         />
         <input
-          className='input'
-          type='password'
-          name='password'
-          placeholder='Password'
+          className="input"
+          type="password"
+          name="password"
+          placeholder="Password"
           onChange={handleChange}
           value={user.password}
         />
-        <button className='bttn'>Submit</button>
+        <button className="bttn">Submit</button>
       </form>
 
-      <div className='login'>
+      <div className="login">
         <p>
-          name: <span style={{ fontWeight: 'bold' }}>user</span> password:{' '}
-          <span style={{ fontWeight: 'bold' }}>user</span>
+          name: <span style={{ fontWeight: "bold" }}>user</span> password:{" "}
+          <span style={{ fontWeight: "bold" }}>user</span>
         </p>
         <p>
-          name: <span style={{ fontWeight: 'bold' }}>admin</span> password:{' '}
-          <span style={{ fontWeight: 'bold' }}>admin</span>
+          name: <span style={{ fontWeight: "bold" }}>admin</span> password:{" "}
+          <span style={{ fontWeight: "bold" }}>admin</span>
         </p>
       </div>
     </FormDiv>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
